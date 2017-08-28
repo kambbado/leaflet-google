@@ -1,0 +1,74 @@
+{
+  "_from": "leaflet-google@~1.0.0",
+  "_id": "leaflet-google@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-gy9TBb/7lDwclvCBKbM1ipvveG8=",
+  "_location": "/leaflet-google",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "leaflet-google@~1.0.0",
+    "name": "leaflet-google",
+    "escapedName": "leaflet-google",
+    "rawSpec": "~1.0.0",
+    "saveSpec": null,
+    "fetchSpec": "~1.0.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/leaflet-google/-/leaflet-google-1.0.0.tgz",
+  "_shasum": "832f5305bffb943c1c96f08129b3358a9bef786f",
+  "_spec": "leaflet-google@~1.0.0",
+  "_where": "D:\\TFS_TEST_AREA\\Intermodal-DEV\\Visualization\\Dashboard",
+  "author": {
+    "name": "Manuel Martins"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "leaflet": "global:L"
+  },
+  "bugs": {
+    "url": "https://github.com/kambbado/leaflet-google/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "bbox-intersect": "^0.1.1",
+    "browserify-shim": "^3.8.11",
+    "fetch-jsonp": "^1.0.0",
+    "leaflet": "^1.2.0"
+  },
+  "deprecated": false,
+  "description": "Bing Maps Layer for Leaflet v1.0.0",
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "budo": "^7.0.2",
+    "standard": "^5.4.1"
+  },
+  "homepage": "https://github.com/kambbado/leaflet-google",
+  "keywords": [
+    "leaflet",
+    "bing"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "leaflet-google",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gmaclennan/leaflet-google.git"
+  },
+  "scripts": {
+    "build": "browserify index.js > leaflet-google.js",
+    "lint": "standard index.js",
+    "postbuild": "uglifyjs leaflet-google.js -cm -o leaflet-google.min.js",
+    "preversion": "npm test && npm run build",
+    "start": "budo index.js:leaflet-google.js --live",
+    "test": "npm run lint"
+  },
+  "version": "1.0.0"
+}
