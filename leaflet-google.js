@@ -1,10 +1,10 @@
-
+// Drag fixed
 var L = require('leaflet')
-
 
 /*
  * L.TileLayer is used for standard xyz-numbered tile layers.
  */
+
 L.Google = L.Class.extend({
 	includes: L.Mixin.Events,
 
@@ -21,10 +21,10 @@ L.Google = L.Class.extend({
 	},
 
 	// Possible types: SATELLITE, ROADMAP, HYBRID
-	initialize: function(type, options) {
-		L.Util.setOptions(this, options);
-
+	initialize: function(type, options, styles) {
 		this._type = google.maps.MapTypeId[type || 'SATELLITE'];
+		L.Util.setOptions(this, options);
+		this._styles = styles;
 	},
 
 	onAdd: function(map, insertAtTheBottom) {
@@ -83,12 +83,14 @@ L.Google = L.Class.extend({
 			var size = this._map.getSize();
 			this._container.style.width = size.x + 'px';
 			this._container.style.height = size.y + 'px';
-			this._container.style.zIndex = 0;
 		}
 	},
 
 	_initMapObject: function() {
 		this._google_center = new google.maps.LatLng(0, 0);
+		if (this._styles) {
+			 var styledMapType = new google.maps.StyledMapType(this._styles, {name: 'Styled Map'});
+		}
 		var map = new google.maps.Map(this._container, {
 		    center: this._google_center,
 		    zoom: 0,
@@ -101,10 +103,15 @@ L.Google = L.Class.extend({
 		    streetViewControl: false
 		});
 
+		if (this._styles) {
+			map.mapTypes.set('styled_map', styledMapType);
+			map.setMapTypeId('styled_map');
+		}
+
 		var _this = this;
-		this._reposition = google.maps.event.addListenerOnce(map, "center_changed", 
+		this._reposition = google.maps.event.addListenerOnce(map, "center_changed",
 			function() { _this.onReposition(); });
-	
+
 		map.backgroundColor = '#ff0000';
 		this._google = map;
 	},
@@ -149,5 +156,3 @@ L.Google = L.Class.extend({
 		//google.maps.event.trigger(this._google, "resize");
 	}
 });
-
-module.exports = L.TileLayer.Google
